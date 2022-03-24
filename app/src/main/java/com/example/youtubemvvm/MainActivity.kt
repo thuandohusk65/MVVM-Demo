@@ -46,7 +46,6 @@ class MainActivity : AppCompatActivity() {
                 for(item in videoList){
                     Toast.makeText(this, item.toString(), Toast.LENGTH_SHORT).show()
                 }
-
             }
         })
 
