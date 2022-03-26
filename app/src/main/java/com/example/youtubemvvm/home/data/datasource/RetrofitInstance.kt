@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitInstance {
     companion object {
-        val BASE_URL = "https://youtube.googleapis.com/youtube/v3"
+        val BASE_URL = "https://youtube.googleapis.com/youtube/"
         fun getRetrofitInstance(): Retrofit {
             return Retrofit.Builder()
                 .baseUrl(BASE_URL)
