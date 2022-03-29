@@ -1,9 +1,9 @@
-package com.example.youtubemvvm.home.data
+package com.example.youtubemvvm.home.data.model
 
 
 import com.google.gson.annotations.SerializedName
 
-data class High(
+data class Default(
     @SerializedName("height")
     val height: Int,
     @SerializedName("url")

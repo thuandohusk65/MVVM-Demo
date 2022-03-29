@@ -6,28 +6,34 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebViewClient
-import com.example.youtubemvvm.R
-import com.example.youtubemvvm.databinding.FragmentWebviewYoutubeBinding
+import android.widget.Toast
+import com.example.youtubemvvm.databinding.FragmentWebviewVideoBinding
 
 
-class webview_youtube : Fragment() {
-    private lateinit var binding: FragmentWebviewYoutubeBinding
+class WebViewVideo : Fragment() {
+    private lateinit var binding: FragmentWebviewVideoBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        binding = FragmentWebviewYoutubeBinding.inflate(inflater, container, false)
+        binding = FragmentWebviewVideoBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        webViewSetup()
+        val videoId = arguments?.getString("videoId")
+        if(videoId!!.isNotEmpty()){
+            webViewSetup(videoId)
+        }
+        else {
+            Toast.makeText(requireContext(),"Error! Please try again!", Toast.LENGTH_SHORT).show()
+        }
     }
 
-    private fun webViewSetup(){
+    private fun webViewSetup(videoId: String){
         val webView = binding.webView
         webView.webViewClient =  WebViewClient()
         webView.apply {
-            loadUrl("https://www.youtube.com/watch?v=AzK6NFoBPXs")
+            loadUrl("https://www.youtube.com/watch?v=${videoId}")
             settings.javaScriptEnabled = true
         }
     }

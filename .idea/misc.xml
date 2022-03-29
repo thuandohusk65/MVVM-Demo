@@ -14,6 +14,9 @@
         <entry key="..\:/revise-android/YoutubeMVVM/app/src/main/res/layout/fragment_saved_video.xml" value="0.25" />
         <entry key="..\:/revise-android/YoutubeMVVM/app/src/main/res/layout/video_item.xml" value="0.176" />
         <entry key="..\:/revise-android/YoutubeMVVM/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_web_view_video.xml" value="0.31927083333333334" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.17135416666666667" />
+        <entry key="app/src/main/res/layout/fragment_webview_video.xml" value="0.3333333333333333" />
       </map>
     </option>
   </component>
