@@ -1,7 +1,7 @@
 package com.example.youtubemvvm.home.view.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.youtubemvvm.home.data.Item
+import com.example.youtubemvvm.home.data.model.Item
 
 class VideoDiffCallBack: DiffUtil.ItemCallback<Item>() {
     override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {

@@ -1,6 +1,6 @@
 package com.example.youtubemvvm.home.data.datasource
 
-import com.example.youtubemvvm.home.data.Videos
+import com.example.youtubemvvm.home.data.model.Videos
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

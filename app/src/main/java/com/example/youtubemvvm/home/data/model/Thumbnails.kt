@@ -1,4 +1,4 @@
-package com.example.youtubemvvm.home.data
+package com.example.youtubemvvm.home.data.model
 
 
 import com.google.gson.annotations.SerializedName
