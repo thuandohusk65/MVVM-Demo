@@ -22,21 +22,12 @@ class WebViewVideo : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val videoId = arguments?.getString("videoId")
         if(videoId!!.isNotEmpty()){
-            webViewSetup(videoId)
         }
         else {
             Toast.makeText(requireContext(),"Error! Please try again!", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun webViewSetup(videoId: String){
-        val webView = binding.webView
-        webView.webViewClient =  WebViewClient()
-        webView.apply {
-            loadUrl("https://www.youtube.com/watch?v=${videoId}")
-            settings.javaScriptEnabled = true
-        }
-    }
 
 
 }

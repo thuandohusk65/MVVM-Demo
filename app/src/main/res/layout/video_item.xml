@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_marginVertical="5dp">
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imageViewVideo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,13 +13,41 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/textViewVideo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewChannel"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/ic_launcher_foreground"
         app:layout_constraintTop_toBottomOf="@id/imageViewVideo"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="10dp"
-        android:text="title"/>
+        android:layout_margin="5dp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textViewTitleVideo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/imageViewChannel"
+        app:layout_constraintStart_toEndOf="@id/imageViewChannel"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:maxLines="2"
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/textViewTitleChannel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitleVideo"
+        app:layout_constraintStart_toStartOf="@id/textViewTitleVideo"
+        app:layout_constraintEnd_toEndOf="@id/textViewTitleVideo"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="5dp"
+        android:textSize="12sp"
+        android:maxLines="1"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

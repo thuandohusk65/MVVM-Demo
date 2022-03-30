@@ -8,14 +8,46 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
-        <WebView
-            android:id="@+id/webView"
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:id="@+id/youtubePlayerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewTitleVideo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:textSize="16sp"
+            android:layout_margin="10dp"
+            android:text="test thoi"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/youtubePlayerView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewChannel"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_launcher_background"
+            app:layout_constraintTop_toBottomOf="@id/textViewTitleVideo"
+            app:layout_constraintStart_toStartOf="@id/textViewTitleVideo"
+            android:layout_marginVertical="10dp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewChannelName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/imageViewChannel"
+            app:layout_constraintTop_toTopOf="@id/imageViewChannel"
+            app:layout_constraintStart_toEndOf="@id/imageViewChannel"
+            android:layout_marginHorizontal="10dp"
+            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

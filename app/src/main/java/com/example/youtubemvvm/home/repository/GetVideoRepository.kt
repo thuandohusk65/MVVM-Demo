@@ -10,4 +10,7 @@ class GetVideoRepository() {
 
     suspend fun getVideos(searchKey: String?) =
         retrofitService.getVideos(searchKey)
+
+    suspend fun getThumbs(channelId: String) =
+        retrofitService.getThumbChannel(channelId)
 }

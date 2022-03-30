@@ -1,7 +1,8 @@
-package com.example.youtubemvvm.home.data.model
+package com.example.youtubemvvm.home.data.model.channel
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Thumbnails(
     @SerializedName("default")
@@ -10,4 +11,4 @@ data class Thumbnails(
     val high: High,
     @SerializedName("medium")
     val medium: Medium
-)
+): Serializable

@@ -9,12 +9,12 @@ import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.youtubemvvm.BaseFragment
 import com.example.youtubemvvm.R
 import com.example.youtubemvvm.databinding.FragmentHomeBinding
-import com.example.youtubemvvm.home.data.model.Item
+import com.example.youtubemvvm.home.data.model.CompleteItem
+import com.example.youtubemvvm.home.data.model.video.Item
 import com.example.youtubemvvm.home.view.adapter.VideoAdapter
 import com.example.youtubemvvm.home.viewmodel.HomeViewModel
 import com.example.youtubemvvm.webview.WebViewVideoActivity
@@ -44,18 +44,11 @@ class HomeFragment : BaseFragment() {
         adapter = VideoAdapter()
         adapter.setOnItemClickListener { onItemClickListener(it) }
         binding.recyclerViewVideo.adapter = adapter
-        viewModel.responseLiveData.observe(viewLifecycleOwner, Observer {
-            val videoList = it.body()?.items
-            if (!it.isSuccessful) {
-                //hideprogressbar
-                hideProgressBar()
-                //show Toast, etc ...
-            }
-//            Log.i("ABCD", it.isSuccessful.toString())
-            else if (videoList != null) {
+        viewModel.getCompleteItem.observe(viewLifecycleOwner, Observer {
+            if(it != null){
                 //hide progressbar
+                adapter.submitList(it)
                 hideProgressBar()
-                adapter.submitList(videoList)
             }
         })
     }
@@ -79,11 +72,10 @@ class HomeFragment : BaseFragment() {
         )
     }
 
-    private fun onItemClickListener(item: Item) {
-        val bundle = Bundle()
-        bundle.putString("videoId", item.id.videoId)
+    private fun onItemClickListener(completeItem: CompleteItem) {
         val intent = Intent(requireActivity(), WebViewVideoActivity::class.java)
-        intent.putExtra("videoId", item.id.videoId)
+//        intent.putExtra("videoId", item.id.videoId)
+        intent.putExtra("itemVideo",completeItem)
         startActivity(intent)
     }
 }

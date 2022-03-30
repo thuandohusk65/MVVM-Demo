@@ -9,10 +9,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.youtubemvvm.R
-import com.example.youtubemvvm.home.data.model.Item
+import com.example.youtubemvvm.home.data.model.CompleteItem
 
 
-class VideoAdapter : ListAdapter<Item, VideoAdapter.ViewHolder>(VideoDiffCallBack()) {
+class VideoAdapter : ListAdapter<CompleteItem, VideoAdapter.ViewHolder>(VideoDiffCallBack()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
@@ -29,26 +29,31 @@ class VideoAdapter : ListAdapter<Item, VideoAdapter.ViewHolder>(VideoDiffCallBac
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val title: TextView = itemView.findViewById(R.id.textViewVideo)
+        val title: TextView = itemView.findViewById(R.id.textViewTitleVideo)
+        val ImageViewChannel: ImageView = itemView.findViewById(R.id.imageViewChannel)
+        val channeltitle: TextView = itemView.findViewById(R.id.textViewTitleChannel)
         val imageViewVideo: ImageView = itemView.findViewById(R.id.imageViewVideo)
 
-        fun bind(item: Item) {
+        fun bind(completeItem: CompleteItem) {
             val res = itemView.context
-            title.text = item.snippet.title
-            Glide.with(res).load(item.snippet.thumbnails.high.url)
+            channeltitle.text = completeItem.videoItem.snippet.channelTitle
+            title.text = completeItem.videoItem.snippet.title
+            Glide.with(res).load(completeItem.channelItem.snippet.thumbnails.default.url)
+                .into(ImageViewChannel)
+            Glide.with(res).load(completeItem.videoItem.snippet.thumbnails.high.url)
                 .into(imageViewVideo)
             itemView.setOnClickListener {
                 onItemClickListener?.let {
-                    it(item)
+                    it(completeItem)
                 }
             }
         }
 
     }
 
-    private var onItemClickListener: ((Item) -> Unit)? = null
+    private var onItemClickListener: ((CompleteItem) -> Unit)? = null
 
-    fun setOnItemClickListener(onClickListener: (Item) -> Unit) {
+    fun setOnItemClickListener(onClickListener: (CompleteItem) -> Unit) {
         onItemClickListener = onClickListener
     }
 }
