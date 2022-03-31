@@ -13,23 +13,10 @@
         <action
             android:id="@+id/action_homeFragment_to_savedVideoFragment"
             app:destination="@id/savedVideoFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_webViewVideo"
-            app:destination="@id/webViewVideo">
-            <argument
-                android:name="videoId"
-                android:defaultValue="@null"
-                app:argType="string" />
-
-        </action>
     </fragment>
     <fragment
         android:id="@+id/savedVideoFragment"
         android:name="com.example.youtubemvvm.savedvideo.view.SavedVideoFragment"
         android:label="fragment_saved_video"
         tools:layout="@layout/fragment_saved_video" />
-    <fragment
-        android:id="@+id/webViewVideo"
-        android:name="com.example.youtubemvvm.webview.WebViewVideo"
-        android:label="WebViewVideo" />
 </navigation>

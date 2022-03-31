@@ -8,7 +8,7 @@ data class Snippet(
     @SerializedName("channelId")
     val channelId: String,
     @SerializedName("channelTitle")
-    val channelTitle: String,
+    var channelTitle: String,
     @SerializedName("description")
     val description: String,
     @SerializedName("liveBroadcastContent")
