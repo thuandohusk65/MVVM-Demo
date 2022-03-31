@@ -30,6 +30,6 @@
         tools:layout="@layout/fragment_saved_video" />
     <fragment
         android:id="@+id/webViewVideo"
-        android:name="com.example.youtubemvvm.webview.WebViewVideo"
+        android:name="com.example.youtubemvvm.playvideo.WebViewVideo"
         android:label="WebViewVideo" />
 </navigation>

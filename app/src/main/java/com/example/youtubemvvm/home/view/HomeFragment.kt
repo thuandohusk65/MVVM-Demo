@@ -14,19 +14,16 @@ import com.example.youtubemvvm.BaseFragment
 import com.example.youtubemvvm.R
 import com.example.youtubemvvm.databinding.FragmentHomeBinding
 import com.example.youtubemvvm.home.data.model.CompleteItem
-import com.example.youtubemvvm.home.data.model.video.Item
 import com.example.youtubemvvm.home.view.adapter.VideoAdapter
 import com.example.youtubemvvm.home.viewmodel.HomeViewModel
-import com.example.youtubemvvm.webview.WebViewVideoActivity
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.example.youtubemvvm.playvideo.PlayVideoActivity
 
 
 class HomeFragment : BaseFragment() {
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var adapter: VideoAdapter
+    val timeSearch: Long = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,8 +41,8 @@ class HomeFragment : BaseFragment() {
         adapter = VideoAdapter()
         adapter.setOnItemClickListener { onItemClickListener(it) }
         binding.recyclerViewVideo.adapter = adapter
-        viewModel.getCompleteItem.observe(viewLifecycleOwner, Observer {
-            if(it != null){
+        viewModel.transformationsCompleteItems.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
                 //hide progressbar
                 adapter.submitList(it)
                 hideProgressBar()
@@ -54,28 +51,24 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun setSearchView() {
-        binding.searchViewVideo.setOnQueryTextListener(object :
-            SearchView.OnQueryTextListener {
+        binding.searchViewVideo.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 viewModel.getSearchVideo(query)
                 return false
             }
 
+            val lasttime = System.currentTimeMillis()
             override fun onQueryTextChange(newText: String?): Boolean {
-                MainScope().launch {
-                    delay(2000)
-                    viewModel.getSearchVideo(newText)
-                }
+                viewModel.search(newText ?: "")
                 return false
             }
-        }
-        )
+        })
     }
 
     private fun onItemClickListener(completeItem: CompleteItem) {
-        val intent = Intent(requireActivity(), WebViewVideoActivity::class.java)
+        val intent = Intent(requireActivity(), PlayVideoActivity::class.java)
 //        intent.putExtra("videoId", item.id.videoId)
-        intent.putExtra("itemVideo",completeItem)
+        intent.putExtra("itemVideo", completeItem)
         startActivity(intent)
     }
 }

@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.YoutubeMVVM">
         <activity
-            android:name=".webview.WebViewVideoActivity"
+            android:name=".playvideo.PlayVideoActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

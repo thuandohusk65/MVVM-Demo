@@ -2,44 +2,58 @@ package com.example.youtubemvvm.home.viewmodel
 
 import androidx.lifecycle.*
 import com.example.youtubemvvm.home.data.model.CompleteItem
-import com.example.youtubemvvm.home.data.model.video.Videos
-import com.example.youtubemvvm.home.repository.GetVideoRepository
+import com.example.youtubemvvm.home.repository.GetItemRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
-import retrofit2.Response
 
 class HomeViewModel() : ViewModel() {
 
-    private val getVideoRepository = GetVideoRepository()
+    private val searchKey = MutableStateFlow("")
 
-    //    private val getCompleteItem = MediatorLiveData<List<CompleteItem>>()
-    val responseLiveData = MutableLiveData<Response<Videos>>()
+    private val getItemRepository = GetItemRepository()
 
-    val getCompleteItem = Transformations.map(
-        responseLiveData
-    ) {
-        val completeItems = ArrayList<CompleteItem>()
-        if (it.isSuccessful) {
-            viewModelScope.launch {
-                val videoItems = it.body()!!.items
-                for (item in videoItems) {
-                    val response = getVideoRepository.getThumbs(item.snippet.channelId)
-                    if (response.isSuccessful) {
-                        completeItems.add(CompleteItem(item, response.body()!!.items[0]))
-                    }
-                }
-            }
+    private val getCompleteItems = MediatorLiveData<List<CompleteItem>>()
+
+    val transformationsCompleteItems = Transformations.map(
+        getCompleteItems
+    ) { completeItem ->
+
+        for(item in completeItem){
+            item.videoItem.snippet.channelTitle = "${item.videoItem.snippet.channelTitle} VND group"
         }
-        return@map completeItems
+        return@map completeItem
     }
 
     init {
         viewModelScope.launch {
-            responseLiveData.postValue(getVideoRepository.getVideos(""))
+            searchKey.collect {
+                getSearchVideo(it)
+            }
         }
     }
 
-
     fun getSearchVideo(searchKey: String?) = viewModelScope.launch {
-        responseLiveData.postValue(getVideoRepository.getVideos(searchKey))
+        viewModelScope.launch {
+            getItemRepository.getVideos(searchKey).let {
+                if (it.isSuccessful) {
+                    val completeItems = ArrayList<CompleteItem>()
+                    val videoItems = it.body()!!.items
+                    for (item in videoItems) {
+                        val response = getItemRepository.getThumbs(item.snippet.channelId)
+//                    Log.i("ABCD", response.await().toString())
+                        if (response.isSuccessful) {
+                            completeItems.add(CompleteItem(item, response.body()!!.items[0]))
+                        }
+                    }
+                    getCompleteItems.postValue(completeItems)
+                }
+            }
+        }
+    }
+
+    fun search(text: String) {
+        searchKey.value = text
     }
 }
